@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+</head>
+<body>
+  <h1>Gestion des utilisateurs</h1>
+
+  <nav>
+    <a href="/dashboard">Retour au dashboard</a> |
+    <a href="/catways-page">Catways</a> |
+    <a href="/reservations-page">Réservations</a> |
+    <a href="/logout">Déconnexion</a>
+  </nav>
+
+  <h2>Liste / consultation</h2>
+  <p>Consulter tous les utilisateurs : <a href="/users">GET /users</a></p>
+
+  <h2>Créer un utilisateur</h2>
+  <form action="/users" method="POST">
+    <div>
+      <label>Username :</label>
+      <input type="text" name="username" required>
+    </div>
+    <div>
+      <label>Email :</label>
+      <input type="email" name="email" required>
+    </div>
+    <div>
+      <label>Password :</label>
+      <input type="password" name="password" required>
+    </div>
+    <button type="submit">Créer</button>
+  </form>
+
+  <h2>Modifier un utilisateur</h2>
+  <p>La modification se fait via l’API sur l’email ciblé déjà testé dans Postman.</p>
+
+  <h2>Supprimer un utilisateur</h2>
+  <p>La suppression se fait via l’API sur l’email ciblé déjà testé dans Postman.</p>
+</body>
+</html>

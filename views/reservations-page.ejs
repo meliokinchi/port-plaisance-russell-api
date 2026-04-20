@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservations</title>
+</head>
+<body>
+  <h1>Gestion des réservations</h1>
+
+  <nav>
+    <a href="/dashboard">Retour au dashboard</a> |
+    <a href="/catways-page">Catways</a> |
+    <a href="/users-page">Users</a> |
+    <a href="/logout">Déconnexion</a>
+  </nav>
+
+  <h2>Liste / consultation</h2>
+  <p>Voir les réservations du catway 24 : <a href="/catways/24/reservations">GET /catways/24/reservations</a></p>
+
+  <h2>Créer une réservation</h2>
+  <form action="/catways/24/reservations" method="POST">
+    <div>
+      <label>Nom du client :</label>
+      <input type="text" name="clientName" required>
+    </div>
+    <div>
+      <label>Nom du bateau :</label>
+      <input type="text" name="boatName" required>
+    </div>
+    <div>
+      <label>Date de début :</label>
+      <input type="date" name="startDate" required>
+    </div>
+    <div>
+      <label>Date de fin :</label>
+      <input type="date" name="endDate" required>
+    </div>
+    <button type="submit">Créer</button>
+  </form>
+
+  <h2>Modifier une réservation</h2>
+  <p>La modification se fait via l’API avec l’identifiant de réservation testé dans Postman.</p>
+
+  <h2>Supprimer une réservation</h2>
+  <p>La suppression se fait via l’API avec l’identifiant de réservation testé dans Postman.</p>
+</body>
+</html>

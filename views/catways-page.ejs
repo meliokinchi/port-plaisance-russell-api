@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Catways</title>
+</head>
+<body>
+  <h1>Gestion des catways</h1>
+
+  <nav>
+    <a href="/dashboard">Retour au dashboard</a> |
+    <a href="/reservations-page">Réservations</a> |
+    <a href="/users-page">Users</a> |
+    <a href="/logout">Déconnexion</a>
+  </nav>
+
+  <h2>Liste / consultation</h2>
+  <p>Consulter tous les catways : <a href="/catways">GET /catways</a></p>
+
+  <h2>Ajouter un catway</h2>
+  <form action="/catways" method="POST">
+    <div>
+      <label>Numéro :</label>
+      <input type="number" name="catwayNumber" required>
+    </div>
+    <div>
+      <label>Type :</label>
+      <select name="catwayType" required>
+        <option value="short">short</option>
+        <option value="long">long</option>
+      </select>
+    </div>
+    <div>
+      <label>État :</label>
+      <input type="text" name="catwayState" required>
+    </div>
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <h2>Modifier l’état d’un catway</h2>
+  <form action="/catways/24?_method=PUT" method="POST">
+    <div>
+      <label>Nouvel état du catway 24 :</label>
+      <input type="text" name="catwayState" required>
+    </div>
+    <button type="submit">Modifier</button>
+  </form>
+
+  <h2>Supprimer un catway</h2>
+  <form action="/catways/24?_method=DELETE" method="POST">
+    <button type="submit">Supprimer le catway 24</button>
+  </form>
+</body>
+</html>

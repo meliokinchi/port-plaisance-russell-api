@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Port de Plaisance Russell</title>
+</head>
+<body>
+  <h1>Tableau de bord</h1>
+
+  <nav>
+    <a href="/catways-page">Catways</a> |
+    <a href="/reservations-page">Réservations</a> |
+    <a href="/users-page">Users</a> |
+    <a href="/api-docs">Documentation API</a> |
+    <a href="/logout">Déconnexion</a>
+  </nav>
+
+  <h2>Utilisateur connecté</h2>
+  <p>Nom : <%= user.username %></p>
+  <p>Email : <%= user.email %></p>
+  <p>Date du jour : <%= currentDate %></p>
+
+  <h2>Réservations en cours</h2>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>Catway</th>
+        <th>Client</th>
+        <th>Bateau</th>
+        <th>Début</th>
+        <th>Fin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (reservations.length === 0) { %>
+        <tr>
+          <td colspan="5">Aucune réservation en cours</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>
