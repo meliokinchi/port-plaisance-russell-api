@@ -1,9 +1,3 @@
-Fais ça, point.
-
-app.js
-Remplace par ça :
-
-js
 require('dotenv').config();
 
 const express = require('express');

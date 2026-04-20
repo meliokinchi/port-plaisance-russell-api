@@ -3,7 +3,9 @@ const User = require('../models/User');
 const isHtmlRequest = (req) => req.headers.accept?.includes('text/html');
 
 const sendErrorResponse = (req, res, status, message) => {
-  if (isHtmlRequest(req)) return res.status(status).send(message);
+  if (isHtmlRequest(req)) {
+    return res.status(status).send(message);
+  }
   return res.status(status).json({ message });
 };
 
@@ -44,7 +46,9 @@ exports.login = async (req, res) => {
           return res.status(500).json({ message: 'Erreur session' });
         }
 
-        if (isHtmlRequest(req)) return res.redirect('/dashboard');
+        if (isHtmlRequest(req)) {
+          return res.redirect('/dashboard');
+        }
 
         return res.status(200).json({
           message: 'Connexion réussie',
@@ -62,7 +66,12 @@ exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
   req.session.destroy(() => {
-    if (isHtmlRequest(req)) return res.redirect('/');
-    return res.status(200).json({ message: 'Déconnexion réussie' });
+    if (isHtmlRequest(req)) {
+      return res.redirect('/');
+    }
+
+    return res.status(200).json({
+      message: 'Déconnexion réussie'
+    });
   });
 };
