@@ -14,6 +14,8 @@
     <a href="/logout">Déconnexion</a>
   </nav>
 
+  <div id="flash" style="margin: 16px 0; font-weight: bold;"></div>
+
   <h2>Liste / consultation</h2>
   <p>Voir les réservations du catway 24 : <a href="/catways/24/reservations">GET /catways/24/reservations</a></p>
 
@@ -39,9 +41,36 @@
   </form>
 
   <h2>Modifier une réservation</h2>
-  <p>La modification se fait via l’API avec l’identifiant de réservation testé dans Postman.</p>
+  <p>La modification se fait via l’API avec l’identifiant de réservation testé dans Swagger ou Postman.</p>
 
   <h2>Supprimer une réservation</h2>
-  <p>La suppression se fait via l’API avec l’identifiant de réservation testé dans Postman.</p>
+  <p>La suppression se fait via l’API avec l’identifiant de réservation testé dans Swagger ou Postman.</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get('success');
+    const error = params.get('error');
+    const flash = document.getElementById('flash');
+
+    if (success === 'created') {
+      flash.textContent = 'Réservation créée avec succès.';
+      flash.style.color = 'green';
+    } else if (success === 'updated') {
+      flash.textContent = 'Réservation modifiée avec succès.';
+      flash.style.color = 'green';
+    } else if (success === 'deleted') {
+      flash.textContent = 'Réservation supprimée avec succès.';
+      flash.style.color = 'green';
+    } else if (error === 'catway-notfound') {
+      flash.textContent = 'Erreur : catway introuvable.';
+      flash.style.color = 'red';
+    } else if (error === 'notfound') {
+      flash.textContent = 'Erreur : réservation introuvable.';
+      flash.style.color = 'red';
+    } else if (error) {
+      flash.textContent = 'Une erreur est survenue.';
+      flash.style.color = 'red';
+    }
+  </script>
 </body>
 </html>

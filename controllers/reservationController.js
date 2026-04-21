@@ -1,6 +1,11 @@
 const Reservation = require('../models/Reservation');
 const Catway = require('../models/Catway');
 
+function isFormRequest(req) {
+  const contentType = req.get('content-type') || '';
+  return contentType.includes('application/x-www-form-urlencoded');
+}
+
 exports.getReservationsByCatway = async (req, res) => {
   try {
     const reservations = await Reservation.find({
@@ -37,6 +42,9 @@ exports.createReservation = async (req, res) => {
     });
 
     if (!catway) {
+      if (isFormRequest(req)) {
+        return res.redirect('/reservations-page?error=catway-notfound');
+      }
       return res.status(404).json({ message: 'Catway introuvable' });
     }
 
@@ -47,11 +55,19 @@ exports.createReservation = async (req, res) => {
 
     await reservation.save();
 
+    if (isFormRequest(req)) {
+      return res.redirect('/reservations-page?success=created');
+    }
+
     return res.status(201).json({
       message: 'Réservation créée',
       reservation
     });
   } catch (error) {
+    if (isFormRequest(req)) {
+      return res.redirect('/reservations-page?error=create');
+    }
+
     return res.status(400).json({ message: error.message });
   }
 };
@@ -64,6 +80,9 @@ exports.updateReservation = async (req, res) => {
     });
 
     if (!reservation) {
+      if (isFormRequest(req)) {
+        return res.redirect('/reservations-page?error=notfound');
+      }
       return res.status(404).json({ message: 'Réservation introuvable' });
     }
 
@@ -74,11 +93,19 @@ exports.updateReservation = async (req, res) => {
 
     await reservation.save();
 
+    if (isFormRequest(req)) {
+      return res.redirect('/reservations-page?success=updated');
+    }
+
     return res.status(200).json({
       message: 'Réservation mise à jour',
       reservation
     });
   } catch (error) {
+    if (isFormRequest(req)) {
+      return res.redirect('/reservations-page?error=update');
+    }
+
     return res.status(400).json({ message: error.message });
   }
 };
@@ -91,11 +118,22 @@ exports.deleteReservation = async (req, res) => {
     });
 
     if (!reservation) {
+      if (isFormRequest(req)) {
+        return res.redirect('/reservations-page?error=notfound');
+      }
       return res.status(404).json({ message: 'Réservation introuvable' });
+    }
+
+    if (isFormRequest(req)) {
+      return res.redirect('/reservations-page?success=deleted');
     }
 
     return res.status(200).json({ message: 'Réservation supprimée' });
   } catch (error) {
+    if (isFormRequest(req)) {
+      return res.redirect('/reservations-page?error=delete');
+    }
+
     return res.status(500).json({ message: error.message });
   }
 };

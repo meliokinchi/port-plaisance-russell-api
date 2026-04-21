@@ -1,5 +1,10 @@
 const Catway = require('../models/Catway');
 
+function isFormRequest(req) {
+  const contentType = req.get('content-type') || '';
+  return contentType.includes('application/x-www-form-urlencoded');
+}
+
 exports.getAllCatways = async (req, res) => {
   try {
     const catways = await Catway.find().sort({ catwayNumber: 1 });
@@ -30,11 +35,22 @@ exports.createCatway = async (req, res) => {
     const catway = new Catway(req.body);
     await catway.save();
 
+    if (isFormRequest(req)) {
+      return res.redirect('/catways-page?success=created');
+    }
+
     return res.status(201).json({
       message: 'Catway créé',
       catway
     });
   } catch (error) {
+    if (isFormRequest(req)) {
+      if (error.code === 11000) {
+        return res.redirect('/catways-page?error=duplicate');
+      }
+      return res.redirect('/catways-page?error=create');
+    }
+
     return res.status(400).json({ message: error.message });
   }
 };
@@ -46,6 +62,9 @@ exports.updateCatway = async (req, res) => {
     });
 
     if (!catway) {
+      if (isFormRequest(req)) {
+        return res.redirect('/catways-page?error=notfound');
+      }
       return res.status(404).json({ message: 'Catway introuvable' });
     }
 
@@ -55,11 +74,19 @@ exports.updateCatway = async (req, res) => {
 
     await catway.save();
 
+    if (isFormRequest(req)) {
+      return res.redirect('/catways-page?success=updated');
+    }
+
     return res.status(200).json({
       message: 'Catway mis à jour',
       catway
     });
   } catch (error) {
+    if (isFormRequest(req)) {
+      return res.redirect('/catways-page?error=update');
+    }
+
     return res.status(400).json({ message: error.message });
   }
 };
@@ -71,11 +98,22 @@ exports.deleteCatway = async (req, res) => {
     });
 
     if (!catway) {
+      if (isFormRequest(req)) {
+        return res.redirect('/catways-page?error=notfound');
+      }
       return res.status(404).json({ message: 'Catway introuvable' });
+    }
+
+    if (isFormRequest(req)) {
+      return res.redirect('/catways-page?success=deleted');
     }
 
     return res.status(200).json({ message: 'Catway supprimé' });
   } catch (error) {
+    if (isFormRequest(req)) {
+      return res.redirect('/catways-page?error=delete');
+    }
+
     return res.status(500).json({ message: error.message });
   }
 };

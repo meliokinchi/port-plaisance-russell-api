@@ -14,6 +14,8 @@
     <a href="/logout">Déconnexion</a>
   </nav>
 
+  <div id="flash" style="margin: 16px 0; font-weight: bold;"></div>
+
   <h2>Liste / consultation</h2>
   <p>Consulter tous les catways : <a href="/catways">GET /catways</a></p>
 
@@ -50,5 +52,32 @@
   <form action="/catways/24?_method=DELETE" method="POST">
     <button type="submit">Supprimer le catway 24</button>
   </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get('success');
+    const error = params.get('error');
+    const flash = document.getElementById('flash');
+
+    if (success === 'created') {
+      flash.textContent = 'Catway créé avec succès.';
+      flash.style.color = 'green';
+    } else if (success === 'updated') {
+      flash.textContent = 'Catway modifié avec succès.';
+      flash.style.color = 'green';
+    } else if (success === 'deleted') {
+      flash.textContent = 'Catway supprimé avec succès.';
+      flash.style.color = 'green';
+    } else if (error === 'duplicate') {
+      flash.textContent = 'Erreur : ce numéro de catway existe déjà.';
+      flash.style.color = 'red';
+    } else if (error === 'notfound') {
+      flash.textContent = 'Erreur : catway introuvable.';
+      flash.style.color = 'red';
+    } else if (error) {
+      flash.textContent = 'Une erreur est survenue.';
+      flash.style.color = 'red';
+    }
+  </script>
 </body>
 </html>
