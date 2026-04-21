@@ -23,13 +23,11 @@ L’authentification permet d’accéder au tableau de bord et aux pages protég
 - **Email** : `bilal@test.com`
 - **Mot de passe** : `Bilal2026!`
 
-### Connexion
+### Connexion Utilisateur
 
-Pour se connecter, utiliser le formulaire de la page d’accueil ou l’endpoint suivant :
+Connectez-vous depuis la page d’accueil avec le formulaire de connexion.
 
-[**POST** `/connexion/login`](https://port-plaisance-russell-api.onrender.com/connexion/login)
-
-#### Exemple de body
+#### Exemple de corps de requête (`body`) :
 
 ```json
 {
