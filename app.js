@@ -4,6 +4,8 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const connectDB = require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
@@ -39,7 +41,45 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.get('/api-docs/swagger.json', (req, res) => {
+  const doc = JSON.parse(JSON.stringify(swaggerDocument));
+
+  if (doc.host) {
+    doc.host = req.get('host');
+  }
+
+  if (doc.schemes && Array.isArray(doc.schemes)) {
+    doc.schemes = [req.protocol];
+  }
+
+  if (doc.servers && Array.isArray(doc.servers)) {
+    doc.servers = [
+      {
+        url: `${req.protocol}://${req.get('host')}`
+      }
+    ];
+  }
+
+  res.json(doc);
+});
+
+app.use(
+  '/api-docs',
+  swaggerUi.serveFiles(null, {
+    swaggerOptions: {
+      url: '/api-docs/swagger.json'
+    }
+  }),
+  swaggerUi.setup(null, {
+    swaggerOptions: {
+      url: '/api-docs/swagger.json'
+    }
+  })
+);
+
 app.use(authRoutes);
+app.use('/users', userRoutes);
+app.use('/catways', catwayRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -68,9 +108,6 @@ app.get('/users-page', (req, res) => {
   if (!req.session.user) return res.redirect('/');
   res.render('users-page');
 });
-
-app.use('/users', userRoutes);
-app.use('/catways', catwayRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Route introuvable' });
