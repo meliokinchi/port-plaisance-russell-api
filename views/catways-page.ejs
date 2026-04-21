@@ -40,17 +40,25 @@
   </form>
 
   <h2>Modifier l’état d’un catway</h2>
-  <form action="/catways/24?_method=PUT" method="POST">
+  <form id="updateCatwayForm" method="POST">
     <div>
-      <label>Nouvel état du catway 24 :</label>
+      <label>Numéro du catway :</label>
+      <input type="number" id="updateCatwayId" required>
+    </div>
+    <div>
+      <label>Nouvel état :</label>
       <input type="text" name="catwayState" required>
     </div>
     <button type="submit">Modifier</button>
   </form>
 
   <h2>Supprimer un catway</h2>
-  <form action="/catways/24?_method=DELETE" method="POST">
-    <button type="submit">Supprimer le catway 24</button>
+  <form id="deleteCatwayForm" method="POST">
+    <div>
+      <label>Numéro du catway :</label>
+      <input type="number" id="deleteCatwayId" required>
+    </div>
+    <button type="submit">Supprimer</button>
   </form>
 
   <script>
@@ -78,6 +86,19 @@
       flash.textContent = 'Une erreur est survenue.';
       flash.style.color = 'red';
     }
+
+    const updateForm = document.getElementById('updateCatwayForm');
+    const deleteForm = document.getElementById('deleteCatwayForm');
+
+    updateForm.addEventListener('submit', function () {
+      const id = document.getElementById('updateCatwayId').value;
+      updateForm.action = '/catways/' + id + '?_method=PUT';
+    });
+
+    deleteForm.addEventListener('submit', function () {
+      const id = document.getElementById('deleteCatwayId').value;
+      deleteForm.action = '/catways/' + id + '?_method=DELETE';
+    });
   </script>
 </body>
 </html>
