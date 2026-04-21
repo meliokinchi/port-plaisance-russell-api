@@ -1,4 +1,4 @@
-📘 Port de Plaisance Russell API
+# 📘 Port de Plaisance Russell API
 Application web réalisée avec Node.js, Express, MongoDB et EJS pour la gestion du port de plaisance Russell. Le projet permet de gérer les catways, les réservations et les utilisateurs, avec une authentification par session et une documentation API accessible depuis l'accueil.
 
 🌐 Liens du projet
