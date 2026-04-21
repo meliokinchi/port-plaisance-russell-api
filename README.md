@@ -1,101 +1,108 @@
-# 📘 Port de Plaisance Russell API
-Application web réalisée avec Node.js, Express, MongoDB et EJS pour la gestion du port de plaisance Russell. Le projet permet de gérer les catways, les réservations et les utilisateurs, avec une authentification par session et une documentation API accessible depuis l'accueil.
+# 📘 Informations sur l'API du port de plaisance Russell
 
-🌐 Liens du projet
-Application déployée : https://port-plaisance-russell-api.onrender.com
+Cette API permet de gérer des utilisateurs, des réservations de catways et les catways eux-mêmes. Le projet est développé avec **Node.js**, **Express**, **MongoDB** et **EJS**. Il comprend une page d’accueil avec connexion, un dashboard, une documentation API accessible depuis l’application et les différentes pages de gestion demandées dans le brief.
 
-Dépôt GitHub : https://github.com/meliokinchi/port-plaisance-russell-api
+---
 
-Documentation API : https://port-plaisance-russell-api.onrender.com/api-docs
+## 📍 Accéder à l'application
 
-🔐 Compte de test
-Email : bilal@test.com
+- **Application déployée** : <https://port-plaisance-russell-api.onrender.com>
+- **Dépôt GitHub** : <https://github.com/meliokinchi/port-plaisance-russell-api>
+- **Documentation API** : <https://port-plaisance-russell-api.onrender.com/api-docs>
 
-Mot de passe : Bilal2026!
+Une fois connecté, il est possible d’accéder à la documentation complète de l’API via le lien **Documentation API** présent dans l’application.
 
-✅ Fonctionnalités
-Page d'accueil avec formulaire de connexion.
-​
+---
 
-Authentification avec POST /login.
-​
+## 🔐 Authentification et connexion
 
-Déconnexion avec GET /logout.
-​
+L’authentification permet d’accéder au tableau de bord et aux pages protégées du projet.
 
-Dashboard après connexion.
-​
+### Compte de test
 
-Gestion des catways : création, consultation, modification, suppression.
+- **Email** : `bilal@test.com`
+- **Mot de passe** : `Bilal2026!`
 
-Gestion des réservations : création, consultation, modification, suppression.
+### Connexion
 
-Gestion des utilisateurs.
+Pour se connecter, utiliser le formulaire de la page d’accueil ou l’endpoint suivant :
 
-Documentation Swagger accessible depuis l'application.
+[**POST** `/login`](https://port-plaisance-russell-api.onrender.com/login)
 
-🚀 Lancer le projet en local
-bash
-git clone https://github.com/meliokinchi/port-plaisance-russell-api.git
-cd port-plaisance-russell-api
-npm install
-npm start
-Ensuite, ouvrir le navigateur sur :
+#### Exemple de body
 
-text
-http://localhost:3000
-🧪 Tests rapides
-Connexion
-Utiliser le compte de test suivant :
+```json
+{
+  "email": "bilal@test.com",
+  "password": "Bilal2026!"
+}
+```
 
-text
-Email : bilal@test.com
-Mot de passe : Bilal2026!
-Catways
-Ouvrir la page Catways.
+---
 
-Créer un catway avec un numéro libre.
+## 🚀 Démarrage rapide en local
 
-Vérifier sa présence via GET /catways.
+1. **Cloner le dépôt** :
+   ```bash
+   git clone https://github.com/meliokinchi/port-plaisance-russell-api.git
+   ```
 
-Modifier son état.
+2. **Aller dans le dossier du projet** :
+   ```bash
+   cd port-plaisance-russell-api
+   ```
 
-Supprimer ce catway de test.
+3. **Installer les dépendances** :
+   ```bash
+   npm install
+   ```
 
-Réservations
-Ouvrir la page Réservations.
+4. **Lancer le serveur** :
+   ```bash
+   npm start
+   ```
 
-Créer une réservation sur le catway 24.
+5. **Ouvrir l'application** :
+   ```txt
+   http://localhost:3000/
+   ```
 
-Vérifier la réservation via GET /catways/24/reservations.
+---
 
-Modifier puis supprimer la réservation de test.
+## 🧰 Technologies utilisées
 
-Utilisateurs
-Ouvrir la page Users.
+- **Node.js**
+- **Express**
+- **MongoDB / Mongoose**
+- **EJS**
+- **express-session**
+- **method-override**
+- **swagger-ui-express**
 
-Consulter la liste des utilisateurs.
+---
 
-Tester la création d'un utilisateur.
+## ✅ Fonctionnalités du projet
 
-📄 Documentation API
-La documentation Swagger est disponible à l'adresse suivante :
+- Page d’accueil avec formulaire de connexion.
+- Dashboard après authentification.
+- Gestion des catways.
+- Gestion des réservations.
+- Gestion des utilisateurs.
+- Documentation API accessible depuis l’application.
+- Déconnexion utilisateur.
 
-text
-https://port-plaisance-russell-api.onrender.com/api-docs
-Elle permet de consulter les routes principales et de tester les endpoints de l'API.
+---
 
-🛠️ Stack technique
-Node.js
+## 📝 Notes de test
 
-Express
+Le projet a été testé avec succès sur les points suivants :
 
-MongoDB / Mongoose
+- Connexion avec le compte de test.
+- Accès au dashboard.
+- Accès aux pages Catways, Réservations et Users.
+- Accès à la documentation API.
+- Création, consultation, modification et suppression des catways.
+- Création et consultation des réservations.
+- Déconnexion fonctionnelle.
 
-EJS
-
-express-session
-
-method-override
-
-swagger-ui-express
+---
