@@ -1,0 +1,451 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Port de Plaisance Russell API",
+    "version": "1.0.0",
+    "description": "Documentation API du projet Port de Plaisance Russell."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Serveur local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentification"
+    },
+    {
+      "name": "Users",
+      "description": "Gestion des utilisateurs"
+    },
+    {
+      "name": "Catways",
+      "description": "Gestion des catways"
+    },
+    {
+      "name": "Reservations",
+      "description": "Gestion des réservations"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Connexion utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "bilal@test.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Bilal2026!"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "302": {
+            "description": "Redirection après connexion"
+          },
+          "401": {
+            "description": "Identifiants invalides"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Déconnexion utilisateur",
+        "responses": {
+          "302": {
+            "description": "Redirection après déconnexion"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Lister les utilisateurs",
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Créer un utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Utilisateur créé"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Afficher un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur trouvé"
+          },
+          "404": {
+            "description": "Utilisateur introuvable"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Modifier un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur modifié"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Supprimer un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur supprimé"
+          }
+        }
+      }
+    },
+    "/catways": {
+      "get": {
+        "tags": ["Catways"],
+        "summary": "Lister les catways",
+        "responses": {
+          "200": {
+            "description": "Liste des catways"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Catways"],
+        "summary": "Créer un catway",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Catway"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Catway créé"
+          }
+        }
+      }
+    },
+    "/catways/{id}": {
+      "get": {
+        "tags": ["Catways"],
+        "summary": "Afficher un catway",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Catway trouvé"
+          },
+          "404": {
+            "description": "Catway introuvable"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Catways"],
+        "summary": "Modifier un catway",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Catway"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Catway modifié"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Catways"],
+        "summary": "Supprimer un catway",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Catway supprimé"
+          }
+        }
+      }
+    },
+    "/reservations": {
+      "get": {
+        "tags": ["Reservations"],
+        "summary": "Lister les réservations",
+        "responses": {
+          "200": {
+            "description": "Liste des réservations"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Reservations"],
+        "summary": "Créer une réservation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reservation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Réservation créée"
+          }
+        }
+      }
+    },
+    "/reservations/{id}": {
+      "get": {
+        "tags": ["Reservations"],
+        "summary": "Afficher une réservation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Réservation trouvée"
+          },
+          "404": {
+            "description": "Réservation introuvable"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Reservations"],
+        "summary": "Modifier une réservation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reservation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Réservation modifiée"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Reservations"],
+        "summary": "Supprimer une réservation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Réservation supprimée"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Bilal"
+          },
+          "email": {
+            "type": "string",
+            "example": "bilal@test.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "Bilal2026!"
+          }
+        }
+      },
+      "Catway": {
+        "type": "object",
+        "properties": {
+          "catwayNumber": {
+            "type": "integer",
+            "example": 1
+          },
+          "catwayType": {
+            "type": "string",
+            "example": "long"
+          },
+          "catwayState": {
+            "type": "string",
+            "example": "Disponible"
+          }
+        }
+      },
+      "Reservation": {
+        "type": "object",
+        "properties": {
+          "catwayNumber": {
+            "type": "integer",
+            "example": 1
+          },
+          "clientName": {
+            "type": "string",
+            "example": "Jean Dupont"
+          },
+          "boatName": {
+            "type": "string",
+            "example": "Sea Breeze"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-04-21"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-04-28"
+          }
+        }
+      }
+    }
+  }
+}

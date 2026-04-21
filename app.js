@@ -41,21 +41,17 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+/**
+ * Swagger JSON dynamique pour Render / localhost
+ */
 app.get('/api-docs/swagger.json', (req, res) => {
   const doc = JSON.parse(JSON.stringify(swaggerDocument));
 
-  if (doc.host) {
-    doc.host = req.get('host');
-  }
-
-  if (doc.schemes && Array.isArray(doc.schemes)) {
-    doc.schemes = [req.protocol];
-  }
-
-  if (doc.servers && Array.isArray(doc.servers)) {
+  if (Array.isArray(doc.servers)) {
     doc.servers = [
       {
-        url: `${req.protocol}://${req.get('host')}`
+        url: `${req.protocol}://${req.get('host')}`,
+        description: 'Serveur courant'
       }
     ];
   }
@@ -63,18 +59,18 @@ app.get('/api-docs/swagger.json', (req, res) => {
   res.json(doc);
 });
 
+const swaggerOptions = {
+  explorer: true,
+  swaggerOptions: {
+    url: '/api-docs/swagger.json',
+    validatorUrl: null
+  }
+};
+
 app.use(
   '/api-docs',
-  swaggerUi.serveFiles(null, {
-    swaggerOptions: {
-      url: '/api-docs/swagger.json'
-    }
-  }),
-  swaggerUi.setup(null, {
-    swaggerOptions: {
-      url: '/api-docs/swagger.json'
-    }
-  })
+  swaggerUi.serveFiles(null, swaggerOptions),
+  swaggerUi.setup(null, swaggerOptions)
 );
 
 app.use(authRoutes);
