@@ -27,7 +27,7 @@ L’authentification permet d’accéder au tableau de bord et aux pages protég
 
 Pour se connecter, utiliser le formulaire de la page d’accueil ou l’endpoint suivant :
 
-[**POST** `/login`](https://port-plaisance-russell-api.onrender.com/login)
+[**POST** `/connexion/login`](https://port-plaisance-russell-api.onrender.com/connexion/login)
 
 #### Exemple de body
 
