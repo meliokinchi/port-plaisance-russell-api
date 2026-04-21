@@ -1,5 +1,15 @@
+/**
+ * Connexion à la base de données MongoDB.
+ * @module config/db
+ */
+
 const mongoose = require('mongoose');
 
+/**
+ * Établit la connexion à MongoDB.
+ * Arrête le processus si la connexion échoue.
+ * @returns {Promise<void>}
+ */
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.URLMONGO);

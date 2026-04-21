@@ -1,11 +1,28 @@
+/**
+ * Contrôleur de gestion des réservations.
+ * Fournit les actions CRUD sur les réservations liées aux catways.
+ * @module controllers/reservationController
+ */
+
 const Reservation = require('../models/Reservation');
 const Catway = require('../models/Catway');
 
+/**
+ * Vérifie si la requête provient d'un formulaire HTML.
+ * @param {Object} req - Requête Express.
+ * @returns {boolean} True si la requête est envoyée via formulaire.
+ */
 function isFormRequest(req) {
   const contentType = req.get('content-type') || '';
   return contentType.includes('application/x-www-form-urlencoded');
 }
 
+/**
+ * Récupère toutes les réservations d'un catway.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.getReservationsByCatway = async (req, res) => {
   try {
     const reservations = await Reservation.find({
@@ -18,6 +35,12 @@ exports.getReservationsByCatway = async (req, res) => {
   }
 };
 
+/**
+ * Récupère une réservation par identifiant.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.getReservationById = async (req, res) => {
   try {
     const reservation = await Reservation.findOne({
@@ -35,6 +58,12 @@ exports.getReservationById = async (req, res) => {
   }
 };
 
+/**
+ * Crée une réservation pour un catway.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.createReservation = async (req, res) => {
   try {
     const catway = await Catway.findOne({
@@ -72,6 +101,12 @@ exports.createReservation = async (req, res) => {
   }
 };
 
+/**
+ * Met à jour une réservation existante.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.updateReservation = async (req, res) => {
   try {
     const reservation = await Reservation.findOne({
@@ -110,6 +145,12 @@ exports.updateReservation = async (req, res) => {
   }
 };
 
+/**
+ * Supprime une réservation.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.deleteReservation = async (req, res) => {
   try {
     const reservation = await Reservation.findOneAndDelete({

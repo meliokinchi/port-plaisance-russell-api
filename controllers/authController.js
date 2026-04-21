@@ -1,7 +1,26 @@
+/**
+ * Contrôleur d'authentification.
+ * Gère la connexion et la déconnexion des utilisateurs.
+ * @module controllers/authController
+ */
+
 const User = require('../models/User');
 
+/**
+ * Vérifie si la requête provient d'un navigateur.
+ * @param {Object} req - Requête Express.
+ * @returns {boolean} True si la requête attend une réponse HTML.
+ */
 const isHtmlRequest = (req) => req.headers.accept?.includes('text/html');
 
+/**
+ * Envoie une réponse d'erreur adaptée au type de requête.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @param {number} status - Code HTTP.
+ * @param {string} message - Message d'erreur.
+ * @returns {Object} Réponse Express.
+ */
 const sendErrorResponse = (req, res, status, message) => {
   if (isHtmlRequest(req)) {
     return res.status(status).send(message);
@@ -9,6 +28,13 @@ const sendErrorResponse = (req, res, status, message) => {
   return res.status(status).json({ message });
 };
 
+/**
+ * Authentifie un utilisateur.
+ * Stocke l'utilisateur dans la session si les identifiants sont valides.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.login = async (req, res) => {
   try {
     console.log('POST /login touché');
@@ -75,6 +101,12 @@ exports.login = async (req, res) => {
   }
 };
 
+/**
+ * Déconnecte l'utilisateur en détruisant la session.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {void}
+ */
 exports.logout = (req, res) => {
   req.session.destroy(() => {
     if (isHtmlRequest(req)) {

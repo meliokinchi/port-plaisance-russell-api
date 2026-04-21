@@ -1,5 +1,17 @@
+/**
+ * Contrôleur de gestion des utilisateurs.
+ * Fournit les actions CRUD sur les comptes utilisateurs.
+ * @module controllers/userController
+ */
+
 const User = require('../models/User');
 
+/**
+ * Récupère tous les utilisateurs.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find().select('-password').sort({ createdAt: -1 });
@@ -9,6 +21,12 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+/**
+ * Récupère un utilisateur par email.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.getUserByEmail = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -25,6 +43,12 @@ exports.getUserByEmail = async (req, res) => {
   }
 };
 
+/**
+ * Crée un nouvel utilisateur.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -58,6 +82,12 @@ exports.createUser = async (req, res) => {
   }
 };
 
+/**
+ * Met à jour un utilisateur existant.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.updateUser = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -87,6 +117,12 @@ exports.updateUser = async (req, res) => {
   }
 };
 
+/**
+ * Supprime un utilisateur.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findOneAndDelete({

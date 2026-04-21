@@ -1,10 +1,27 @@
+/**
+ * Contrôleur de gestion des catways.
+ * Fournit les actions CRUD sur les catways.
+ * @module controllers/catwayController
+ */
+
 const Catway = require('../models/Catway');
 
+/**
+ * Vérifie si la requête provient d'un formulaire HTML.
+ * @param {Object} req - Requête Express.
+ * @returns {boolean} True si la requête est envoyée via formulaire.
+ */
 function isFormRequest(req) {
   const contentType = req.get('content-type') || '';
   return contentType.includes('application/x-www-form-urlencoded');
 }
 
+/**
+ * Récupère tous les catways.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.getAllCatways = async (req, res) => {
   try {
     const catways = await Catway.find().sort({ catwayNumber: 1 });
@@ -14,6 +31,12 @@ exports.getAllCatways = async (req, res) => {
   }
 };
 
+/**
+ * Récupère un catway par numéro.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.getCatwayById = async (req, res) => {
   try {
     const catway = await Catway.findOne({
@@ -30,6 +53,12 @@ exports.getCatwayById = async (req, res) => {
   }
 };
 
+/**
+ * Crée un nouveau catway.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.createCatway = async (req, res) => {
   try {
     const catway = new Catway(req.body);
@@ -55,6 +84,12 @@ exports.createCatway = async (req, res) => {
   }
 };
 
+/**
+ * Met à jour un catway existant.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.updateCatway = async (req, res) => {
   try {
     const catway = await Catway.findOne({
@@ -91,6 +126,12 @@ exports.updateCatway = async (req, res) => {
   }
 };
 
+/**
+ * Supprime un catway.
+ * @param {Object} req - Requête Express.
+ * @param {Object} res - Réponse Express.
+ * @returns {Promise<void>}
+ */
 exports.deleteCatway = async (req, res) => {
   try {
     const catway = await Catway.findOneAndDelete({
